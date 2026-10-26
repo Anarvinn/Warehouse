@@ -1,0 +1,49 @@
+{
+    "operation": "incoming",
+    "id": "d549c899-bee1-4291-a1a7-205057e6055f",
+    "date": "2026-10-27 00:18:02",
+    "amount": 5,
+    "reasons": "Delivery"
+}
+{
+    "operation": "incoming",
+    "id": "2999b4e2-b3d5-4186-a731-4f2cb8fd5a9a",
+    "date": "2026-10-27 00:18:11",
+    "amount": 12,
+    "reasons": "Delivery"
+}
+{
+    "operation": "incoming",
+    "id": "90e6f24c-0475-46c7-9a78-5d5cc6457409",
+    "date": "2026-10-27 00:18:14",
+    "amount": 5,
+    "reasons": "Delivery"
+}
+{
+    "operation": "incoming",
+    "id": "435865e1-8b7e-4f30-b1da-20b818df5698",
+    "date": "2026-10-27 00:20:19",
+    "amount": 57,
+    "reasons": "create"
+}
+{
+    "operation": "outgoing",
+    "id": "d549c899-bee1-4291-a1a7-205057e6055f",
+    "date": "2026-10-27 00:20:53",
+    "amount": 10,
+    "reasons": "Buy"
+}
+{
+    "operation": "outgoing",
+    "id": "2999b4e2-b3d5-4186-a731-4f2cb8fd5a9a",
+    "date": "2026-10-27 00:20:59",
+    "amount": 5,
+    "reasons": "Buy"
+}
+{
+    "operation": "outgoing",
+    "id": "90e6f24c-0475-46c7-9a78-5d5cc6457409",
+    "date": "2026-10-27 00:21:02",
+    "amount": 1,
+    "reasons": "Buy"
+}

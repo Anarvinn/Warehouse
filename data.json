@@ -1,0 +1,56 @@
+{
+    "d549c899-bee1-4291-a1a7-205057e6055f": {
+        "title": "Apple",
+        "amount": 80,
+        "price": 55,
+        "category": "Fruit"
+    },
+    "2999b4e2-b3d5-4186-a731-4f2cb8fd5a9a": {
+        "title": "Banana",
+        "amount": 222,
+        "price": 12,
+        "category": "Fruit"
+    },
+    "660b9b48-1292-4f1b-81df-f12e42e4fb0c": {
+        "title": "Milk",
+        "amount": 50,
+        "price": 5,
+        "category": "Drink"
+    },
+    "cd2d93b6-37b8-4591-86cc-b30b037a18a2": {
+        "title": "Monster",
+        "amount": 70,
+        "price": 14,
+        "category": "Drink"
+    },
+    "9a9d5556-174e-48f6-94c2-8cb1eaf66043": {
+        "title": "Iphone",
+        "amount": 10,
+        "price": 455,
+        "category": "Device"
+    },
+    "90e6f24c-0475-46c7-9a78-5d5cc6457409": {
+        "title": "Car",
+        "amount": 27,
+        "price": 850,
+        "category": "Venicle"
+    },
+    "540a4911-b7a7-47af-8845-7b8493468b94": {
+        "title": "Monkey",
+        "amount": 15,
+        "price": 600,
+        "category": "Animal"
+    },
+    "4e15bf7f-d6fc-4c6c-95f1-d26d02031f0e": {
+        "title": "Stone",
+        "amount": 105,
+        "price": 3,
+        "category": "Materials"
+    },
+    "435865e1-8b7e-4f30-b1da-20b818df5698": {
+        "title": "Notebook",
+        "amount": 57,
+        "price": 2,
+        "category": "Stationery"
+    }
+}
