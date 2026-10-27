@@ -35,13 +35,13 @@ class Warehouse:
                     if data.get(id):
                         return data
                     else:
-                        raise KeyError("Нет продукта с таким ID")
+                        raise KeyError("Product with this ID does not exist")
                 if data:
                     return data
                 else:
                     raise json.JSONDecodeError
         except json.JSONDecodeError:
-            raise NotFindDataInJson("База товаров пуста")
+            raise NotFindDataInJson("Product database is empty")
 
     @staticmethod
     def dump_data(data):
@@ -59,7 +59,7 @@ class Warehouse:
         for k in data.keys():
             if data[k]['title'] == title:
                 return k
-        raise KeyError("Нет товара с таким названием")
+        raise KeyError("Product with this title does not exist")
 
     def create_product(self, **kwargs):
         product = Product(**kwargs)
@@ -76,8 +76,8 @@ class Warehouse:
                 self.dump_data(data)
 
             else:
-                raise KeyError("Товар с таким ID уже существует")
-        return print("Товар зарегистрирован")
+                raise KeyError("Product with this ID already exists")
+        return print("Product registered successfully")
 
     def update_product(self, id, **kwargs):
 
@@ -92,7 +92,7 @@ class Warehouse:
             self.dump_data(data)
         except (ValueError, TypeError):
             raise
-        return print("Товар отредактирован")
+        return print("Product updated successfully")
 
     def set_amount_product(self, id, amount, plus):
         try:
@@ -106,8 +106,8 @@ class Warehouse:
 
         self.dump_data(data)
         if plus:
-            return print(f"Товар {data[id]['title']} принят")
-        return print(f"Товар {data[id]['title']} списан в количестве {amount}шт.")
+            return print(f"Product {data[id]['title']} received")
+        return print(f"Product {data[id]['title']} dispatched in quantity of {amount} pcs.")
 
     def product_info(self, id):
         try:
@@ -118,7 +118,7 @@ class Warehouse:
         if id in data:
             product = Product(id=id, **data[id])
             return print(product)
-        raise KeyError("Нет товара с таким ID")
+        raise KeyError("Product with this ID does not exist")
 
     def product_from_category(self, category):
         try:
@@ -131,7 +131,7 @@ class Warehouse:
                 res.append(Product(id=k, **v))
 
         if not res:
-            raise KeyError("В базе нет товаров этой категории")
+            raise KeyError("No products found in this category")
         for el in res:
             print(el, '\n')
 
@@ -157,9 +157,9 @@ class Warehouse:
             try:
                 n = int(n)
                 if n < 1:
-                    raise MinValue("Число не может быть меньше 1")
+                    raise MinValue("Number cannot be less than 1")
             except (TypeError, ValueError):
-                raise TypeError("Введите число")
+                raise TypeError("Please enter a number")
             except MinValue:
                 raise
 
@@ -175,9 +175,9 @@ class Warehouse:
                 all_product.append(el['title'])
 
         if info is True:
-            return print(f"На складе имеется {count} наименований")
-        print(f"{count} товар(ов) на общую стоимость в {full_price}$")
-        print(f"Товар(ы): {', '.join(all_product)}")
+            return print(f"There are {count} items in stock")
+        print(f"{count} item(s) for a total cost of {full_price}$")
+        print(f"Product(s): {', '.join(all_product)}")
 
 
 class Product:
@@ -196,9 +196,9 @@ class Product:
             if not isinstance(value, str):
                 print(type(value))
                 print(value)
-                raise TypeError(f"{name} должно быть строкой")
+                raise TypeError(f"{name} must be a string")
             if len(value) < 3:
-                raise ValueError(f"Слишком короткое название для: {name}")
+                raise ValueError(f"Name is too short for: {name}")
 
         if name in {'amount', 'price'}:
             if not isinstance(value, (int, float)):
@@ -209,14 +209,14 @@ class Product:
                     else:
                         value = int(value)
                 except (TypeError, ValueError):
-                    raise TypeError(f"{name} Должно быть числом")
+                    raise TypeError(f"{name} must be a number")
             if value < 0:
                 raise ValueError(
-                    f"Число для {name} не может быть отрицательным")
+                    f"Number for {name} cannot be negative")
         super().__setattr__(name, value)
 
     def __str__(self):
-        return f"{self.title} - Категория: {self.category}, Наличие: {self.amount} шт, Цена: {self.price}$, Общая стоимость: {self.amount * self.price}$"
+        return f"{self.title} Category: {self.category}, Stock: {self.amount} pcs, Price: {self.price}$, Total cost: {self.amount * self.price}$"
 
     def __repr__(self):
         return f"{self.id}: {self.amount}"
@@ -233,13 +233,13 @@ class Product:
         try:
             value = (int(value), float(value))['.' in value]
         except ValueError:
-            raise ValueError("Значение должно быть числом")
+            raise ValueError("Value must be a number")
         if value < 0:
-            raise ValueError(f"Число не может быть отрицательным")
+            raise ValueError(f"Number cannot be negative")
 
         if not plus:
             if (self.amount - value) < 0:
-                raise MinValue("Нет столько товара в наличии")
+                raise MinValue("Not enough products in stock")
             self.amount -= value
         else:
             self.amount += value

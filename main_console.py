@@ -5,37 +5,37 @@ def run_console():
     warehouse = Warehouse()
 
     while True:
-        print("\n==== Управление складом ====")
+        print("\n==== Warehouse Management ====")
         print("""
-Товары 1:
-Склад 2:
+Products 1:
+Warehouse 2:
 
-Выход: 0
+Exit: 0
 """)
-        choice = input("Выберите пункт: ").strip()
+        choice = input("Select an option: ").strip()
         if choice == '1':
             products_logic(warehouse)
         elif choice == '2':
             warehouse_logic(warehouse)
         elif choice == '0':
-            print("До встречи")
+            print("See you later")
             break
         else:
-            print("Выбран не верный пункт попробуйте снова")
+            print("Invalid option, please try again")
 
 
 def products_logic(warehouse):
 
     while True:
-        print("\n==== Меню товаров ====")
+        print("\n==== Products Menu ====")
         print("""
-Создание товара: 1
-Редактирование товара: 2
-ID товара: 3
+Create product: 1
+Edit product: 2
+Product ID: 3
 
-Выход: 0
+Exit: 0
 """)
-        choice = input("Выберите пункт: ").strip()
+        choice = input("Select an option: ").strip()
         if choice == '1':
             create_product(warehouse)
         elif choice == '2':
@@ -45,29 +45,29 @@ ID товара: 3
         elif choice == '0':
             break
         else:
-            print("Выбран не верный пункт попробуйте снова")
+            print("Invalid option, please try again")
 
 
 def warehouse_logic(warehouse):
 
     while True:
-        print("\n==== Меню склада ====")
+        print("\n==== Warehouse Menu ====")
         print("""
-Принять товар: 1
-Списать товар: 2
-Наличие товара: 3
-Сортировка: 4
-Отчетность: 5
+Receive product: 1
+Write-off product: 2
+Product availability: 3
+Sort: 4
+Reporting: 5
 
-Выход: 0
+Exit: 0
 """)
-        choice = input("Выберите пункт: ").strip()
+        choice = input("Select an option: ").strip()
 
         if choice == '1':
-            reasons = input("Причина добавления товара: ")
+            reasons = input("Reason for adding product: ")
             accept_product(warehouse, reasons)
         elif choice == '2':
-            reasons = input("Причина списания товара: ")
+            reasons = input("Reason for writing off product: ")
             write_off_product(warehouse, reasons)
         elif choice == '3':
             availability_product(warehouse)
@@ -78,18 +78,18 @@ def warehouse_logic(warehouse):
         elif choice == '0':
             break
         else:
-            print("Выбран не верный пункт попробуйте снова")
+            print("Invalid option, please try again")
 
 
 def create_product(warehouse):
 
     while True:
-        print("\n==== Создание товара ====")
+        print("\n==== Create Product ====")
         try:
-            title = input('Название: ').rstrip()
-            category = input('Категория: ').rstrip()
-            amount = input('Количество: ').strip()
-            price = input('Цена: ').strip()
+            title = input('Title: ').rstrip()
+            category = input('Category: ').rstrip()
+            amount = input('Amount: ').strip()
+            price = input('Price: ').strip()
             warehouse.create_product(
                 title=title, category=category, amount=amount, price=price)
             record_transaction(id=warehouse.get_id(
@@ -102,37 +102,37 @@ def create_product(warehouse):
 def update_product(warehouse):
 
     while True:
-        print("\n==== Редактирование товара ====")
+        print("\n==== Edit Product ====")
         try:
             try:
-                print("Выход: 0")
-                id = input('ID изменяемого товара: ').rstrip()
+                print("Exit: 0")
+                id = input('ID of the product to edit: ').rstrip()
                 if id == '0':
                     break
                 warehouse.get_data(id)
                 warehouse.update_product(id=id,
                                          title=input(
-                                             'Новое название: ').rstrip(),
+                                             'New title: ').rstrip(),
                                          category=input(
-                                             'Новая категория: ').rstrip(),
-                                         price=input('Новая цена: ').strip())
+                                             'New category: ').rstrip(),
+                                         price=input('New price: ').strip())
                 break
             except (KeyError, NotFindDataInJson) as e:
-                print("Нет товара с таким ID")
+                print("No product with this ID")
         except (ValueError, TypeError) as e:
             print(e)
 
 
 def get_id_product(warehouse):
     while True:
-        print("\n==== Получение ID ====")
+        print("\n==== Get ID ====")
         try:
-            print("Выход: 0")
-            name = input("Название товара: ").rstrip()
+            print("Exit: 0")
+            name = input("Product title: ").rstrip()
             if name == '0':
                 break
             id = warehouse.get_id(name)
-            print(f"ID товара {name}: \n{id}")
+            print(f"Product ID {name}: \n{id}")
             break
         except (NotFindDataInJson, KeyError) as e:
             print(e)
@@ -140,16 +140,16 @@ def get_id_product(warehouse):
 
 def accept_product(warehouse, reasons):
     while True:
-        print("\n==== Принятие товара ====")
-        print("\nВведите название товара для принятия на вклад \nВыход: 0\n")
+        print("\n==== Receive Product ====")
+        print("\nEnter product title to receive into stock \nExit: 0\n")
 
-        title = input("Название: ").rstrip()
+        title = input("Title: ").rstrip()
         if title == '0':
             break
         try:
             id = warehouse.get_id(title)
             try:
-                amount = input("Количество: ").strip()
+                amount = input("Amount: ").strip()
                 warehouse.set_amount_product(id, amount, plus=True)
                 record_transaction(id=id, amount=amount, reasons=reasons)
 
@@ -157,31 +157,31 @@ def accept_product(warehouse, reasons):
                 print(e)
         except (KeyError, NotFindDataInJson):
             print("""
-Нет зарегестрированого товара с таким названием
-Зарегестрировать товар: 1
-Пропустить: 0
+No registered product with this title
+Register product: 1
+Skip: 0
 """)
 
-            choice = input("Выберите пункт: ").strip()
+            choice = input("Select an option: ").strip()
             if choice == '1':
                 create_product(warehouse)
             elif choice == '0':
                 continue
             else:
-                print("Выбран не верный пункт попробуйте снова")
+                print("Invalid option, please try again")
 
 
 def write_off_product(warehouse, reasons):
     while True:
-        print("\n==== Списание товара ====")
-        print("Введите название товара для списания со склада \nВыход: 0\n")
-        title = input("Название: ").rstrip()
+        print("\n==== Write-off Product ====")
+        print("Enter product title to write off from warehouse \nExit: 0\n")
+        title = input("Title: ").rstrip()
         if title == '0':
             break
         try:
             id = warehouse.get_id(title)
             try:
-                amount = input("Количество: ").strip()
+                amount = input("Amount: ").strip()
                 warehouse.set_amount_product(id, amount, plus=False)
                 record_transaction(id=id, amount=amount,
                                    reasons=reasons, operation='outgoing')
@@ -194,28 +194,28 @@ def write_off_product(warehouse, reasons):
 
 def availability_product(warehouse):
     while True:
-        print("\n==== Наличие товара ====")
+        print("\n==== Product Availability ====")
         warehouse.get_remains(info=True)
 
         print("""
-Найти товар по: 
-Названию: 1
+Find product by: 
+Title: 1
 ID: 2
-Категории: 3
+Category: 3
 
-Выход: 0
+Exit: 0
 """)
-        choice = input("Выберите пункт: ").strip()
+        choice = input("Select an option: ").strip()
         if choice == '1' or choice == '2':
             if choice == '1':
                 try:
-                    title = input("Название товара: ").rstrip()
+                    title = input("Product title: ").rstrip()
                     id = warehouse.get_id(title)
                 except (KeyError, NotFindDataInJson):
-                    print("Нет товара с таким названием")
+                    print("No product with this title")
                     id = None
             else:
-                id = input("ID товара: ").rstrip()
+                id = input("Product ID: ").rstrip()
 
             if id:
                 try:
@@ -224,28 +224,28 @@ ID: 2
                     print(e)
         elif choice == '3':
             try:
-                category = input("Название категории: ").rstrip()
+                category = input("Category name: ").rstrip()
                 warehouse.product_from_category(category)
             except (KeyError, NotFindDataInJson) as e:
                 print(e)
         elif choice == '0':
             break
         else:
-            print("Выбран не верный пункт попробуйте снова")
+            print("Invalid option, please try again")
 
 
 def sorted_product(warehouse):
     while True:
-        print("\n==== Сортировка товара ====")
+        print("\n==== Sort Products ====")
         print("""
-Сортировать по:
-Цене: 1
-Названию: 2
-Количеству: 3
+Sort by:
+Price: 1
+Title: 2
+Amount: 3
 
-Выход: 0
+Exit: 0
 """)
-        choice = input("Выберите пункт: ").strip()
+        choice = input("Select an option: ").strip()
         if choice in ['1', '2', '3']:
             try:
                 warehouse.sort_product(choice)
@@ -254,26 +254,26 @@ def sorted_product(warehouse):
         elif choice == '0':
             break
         else:
-            print("Выбран не верный пункт попробуйте снова")
+            print("Invalid option, please try again")
 
 
 def report_poduct(warehouse):
     while True:
-        print("\n==== Отчет наличия ====")
+        print("\n==== Stock Report ====")
         print("""
-Общий отчет: 1
-Остаток ниже заданого количества: 2
+General report: 1
+Stock below specified amount: 2
 
-Выход: 0
+Exit: 0
 """)
-        choice = input("Выберите пункт: ").strip()
+        choice = input("Select an option: ").strip()
         if choice == '1':
             try:
                 warehouse.get_remains()
             except NotFindDataInJson as e:
                 print(e)
         elif choice == '2':
-            num = input("Ниже какого количества искать: ")
+            num = input("Search below what amount: ")
             try:
                 warehouse.get_remains(num)
             except (NotFindDataInJson, TypeError, MinValue) as e:
@@ -281,7 +281,7 @@ def report_poduct(warehouse):
         elif choice == '0':
             break
         else:
-            print("Выбран не верный пункт попробуйте снова")
+            print("Invalid option, please try again")
 
 
 def record_transaction(id, amount, reasons, operation='incoming'):
