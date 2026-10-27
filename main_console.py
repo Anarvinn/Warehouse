@@ -93,7 +93,7 @@ def create_product(warehouse):
             warehouse.create_product(
                 title=title, category=category, amount=amount, price=price)
             record_transaction(id=warehouse.get_id(
-                title), amount=amount, reasons='create')
+                title), amount=amount, reasons='Сreate')
             break
         except (ValueError, TypeError, KeyError, NotFindDataInJson) as e:
             print(e)

@@ -194,8 +194,6 @@ class Product:
     def __setattr__(self, name, value):
         if name in {'title', 'category'}:
             if not isinstance(value, str):
-                print(type(value))
-                print(value)
                 raise TypeError(f"{name} must be a string")
             if len(value) < 3:
                 raise ValueError(f"Name is too short for: {name}")
